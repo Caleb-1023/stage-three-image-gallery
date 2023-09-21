@@ -11,7 +11,7 @@ type User = {
 };
 
 type URLs = {
-  full: string;
+    full: string;
 };
 
 export type Image = {
@@ -24,6 +24,7 @@ export type Image = {
 
 const Home = () => {
   const navigate = useNavigate();
+  const user = localStorage.getItem('user')
 
   const [images, setImages] = useState<Image[]>([]);
   const [query, setQuery] = useState<string>("");
@@ -88,9 +89,7 @@ const Home = () => {
   };
 
   const checkUser = () => {
-    const user = localStorage.getItem('user')
-
-    if (user) {
+    if (!user) {
         navigate('/signin')
     }
   }
