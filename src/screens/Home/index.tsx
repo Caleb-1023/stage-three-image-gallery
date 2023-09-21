@@ -87,6 +87,14 @@ const Home = () => {
     // console.log(results);
   };
 
+  const checkUser = () => {
+    const user = localStorage.getItem('user')
+
+    if (user) {
+        navigate('/signin')
+    }
+  }
+
   const handleLogout = () => {
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("token");
@@ -94,6 +102,7 @@ const Home = () => {
   };
 
   useEffect(() => {
+    checkUser()
     getImages();
   }, []);
 

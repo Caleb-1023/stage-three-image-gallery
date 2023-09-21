@@ -17,7 +17,7 @@ const SignIn = () => {
       .then((response) => {
         console.log(response);
         window.localStorage.setItem('user', email)
-        window.localStorage.setItem('token', response.user.accessToken)
+        // window.localStorage.setItem('token', response.user.accessToken)
         // console.log(response.user.accessToken)
         navigate("/");
       })
