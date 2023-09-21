@@ -14,8 +14,8 @@ const SignIn = () => {
   const signIn = (e: any) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        // console.log(response);
         window.localStorage.setItem('user', email)
         // window.localStorage.setItem('token', response.user.accessToken)
         // console.log(response.user.accessToken)
