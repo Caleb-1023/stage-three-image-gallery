@@ -25,12 +25,12 @@ export type Image = {
 const Home = () => {
   const navigate = useNavigate();
 
-  const [images, setImages] = useState<Image[] | undefined>();
+  const [images, setImages] = useState<Image[]>([]);
   const [query, setQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
   const filterImages = () => {
-    if (query != "") {
+    if (query != "" && images.length > 0) {
       return images?.filter((image) =>
         image.user.name.toLowerCase().includes(query)
       );
@@ -43,7 +43,7 @@ const Home = () => {
     images?.filter((image) => image.user.name.toLowerCase().includes("m"))
   );
 
-  let filteredImages: Image[] | undefined = filterImages();
+  let filteredImages: Image[] = filterImages();
 
   const getImages = () => {
     axios
