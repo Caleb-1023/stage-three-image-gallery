@@ -16,7 +16,7 @@ const SignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         // console.log(response);
-        window.localStorage.setItem('user', email)
+        window.localStorage.setItem("user", email);
         // window.localStorage.setItem('token', response.user.accessToken)
         // console.log(response.user.accessToken)
         navigate("/");
@@ -28,8 +28,9 @@ const SignIn = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center p-5">
-      <div className="flex flex-col items-center justify-center space-y-4 p-5 w-full md:w-1/2 lg:w-1/4 mx-auto rounded-lg border-2 border-gray-300 shadow-2xl">
+    <div className="bg-[url('/bg.png')] bg-cover bg-center w-screen h-screen flex flex-col items-center justify-center p-5">
+      <h1 className="font-black text-6xl mb-3">ART.</h1>
+      <div className="bg-white flex flex-col items-center justify-center space-y-4 p-5 w-full md:w-1/2 lg:w-1/4 mx-auto rounded-lg border-2 border-gray-300 shadow-2xl">
         <h1 className="text-2xl font-bold">Sign In</h1>
         {error != "" && (
           <div className="bg-red-200 p-3 rounded-md">

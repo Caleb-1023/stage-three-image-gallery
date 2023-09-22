@@ -11,7 +11,7 @@ type User = {
 };
 
 type URLs = {
-    full: string;
+  full: string;
 };
 
 export type Image = {
@@ -24,11 +24,12 @@ export type Image = {
 
 const Home = () => {
   const navigate = useNavigate();
-  const user = localStorage.getItem('user')
+  const user = localStorage.getItem("user");
 
   const [images, setImages] = useState<Image[]>([]);
   const [query, setQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   const filterImages = () => {
     if (query != "" && images.length > 0) {
@@ -40,9 +41,9 @@ const Home = () => {
     }
   };
 
-  console.log(
-    images?.filter((image) => image.user.name.toLowerCase().includes("m"))
-  );
+  //   console.log(
+  //     images?.filter((image) => image.user.name.toLowerCase().includes("m"))
+  //   );
 
   let filteredImages: Image[] = filterImages();
 
@@ -53,12 +54,13 @@ const Home = () => {
         {}
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setImages(response.data);
         setLoading(false);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setError("Unable to get Images, check your network");
+        setLoading(false);
       });
   };
 
@@ -90,9 +92,9 @@ const Home = () => {
 
   const checkUser = () => {
     if (!user) {
-        navigate('/signin')
+      navigate("/signin");
     }
-  }
+  };
 
   const handleLogout = () => {
     window.localStorage.removeItem("user");
@@ -101,24 +103,29 @@ const Home = () => {
   };
 
   useEffect(() => {
-    checkUser()
+    checkUser();
     getImages();
   }, []);
 
   return (
-    <div className="p-5 flex flex-col items-center space-y-4">
+    <div className="bg-[url(./gal-bg.png)] min-h-screen bg-center p-5 flex flex-col items-center space-y-4">
       <DragDropContext onDragEnd={handleDragDrop}>
         <div className="w-full flex flex-col items-center justify-center">
-          <div className="w-full flex items-center justify-between mb-2">
-            <p className="font-semibold underline underline-offset-4">
+          <div className="w-full flex items-center justify-between mb-2 md:px-3">
+            <p className="basis-1/3 font-semibold underline text-sm md:text-base underline-offset-4">
               {localStorage.getItem("user")}
             </p>
-            <button
-              onClick={handleLogout}
-              className="bg-black h0ver:bg-gray-900 text-white font-medium p-1 rounded-md"
-            >
-              Log out
-            </button>
+            <h1 className="basis-1/3 font-black text-center text-3xl md:text-6xl">
+              ART.
+            </h1>
+            <div className="basis-1/3 flex flex-row-reverse items-center">
+              <button
+                onClick={handleLogout}
+                className="bg-black hover:bg-gray-900 text-white text-sm md:text-base py-1 px-2 rounded-md cursor-pointer"
+              >
+                Log out
+              </button>
+            </div>
           </div>
           <form className="w-full">
             <input
@@ -142,6 +149,16 @@ const Home = () => {
               <path d="M12,2a10.032,10.032,0,0,1,7.122,3H16a1,1,0,0,0-1,1h0a1,1,0,0,0,1,1h4.143A1.858,1.858,0,0,0,22,5.143V1a1,1,0,0,0-1-1h0a1,1,0,0,0-1,1V3.078A11.981,11.981,0,0,0,.05,10.9a1.007,1.007,0,0,0,1,1.1h0a.982.982,0,0,0,.989-.878A10.014,10.014,0,0,1,12,2Z" />
               <path d="M22.951,12a.982.982,0,0,0-.989.878A9.986,9.986,0,0,1,4.878,19H8a1,1,0,0,0,1-1H9a1,1,0,0,0-1-1H3.857A1.856,1.856,0,0,0,2,18.857V23a1,1,0,0,0,1,1H3a1,1,0,0,0,1-1V20.922A11.981,11.981,0,0,0,23.95,13.1a1.007,1.007,0,0,0-1-1.1Z" />
             </svg>
+          </div>
+        ) : error != "" ? (
+          <div className="h-96 flex flex-col items-center justify-center space-y-4 text-center">
+            <p className="text-xl">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-black hover:bg-gray-900 text-white font-semibold py-1 px-2 rounded-md cursor-pointer"
+            >
+              Reload
+            </button>
           </div>
         ) : (
           <Droppable
