@@ -108,7 +108,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-[url(./gal-bg.png)] min-h-screen bg-center p-5 flex flex-col items-center space-y-4">
+    <div className="bg-[url(/gal-bg.png)] min-h-screen bg-center p-5 flex flex-col items-center space-y-4">
       <DragDropContext onDragEnd={handleDragDrop}>
         <div className="w-full flex flex-col items-center justify-center">
           <div className="w-full flex items-center justify-between mb-2 md:px-3">
